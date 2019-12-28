@@ -4,6 +4,7 @@
 }
 
 <script>
+    //Adds Back btn to menu
     $(".navbar-img").remove();
     $(".navbar-brand").append("<a class=\" text-white\" href=\"/Library/Index/\"><i class=\"fa fa-angle-left\"></i> Back</a>");
 </script>
@@ -42,6 +43,8 @@
     </div>
 </div>
 <script>
+    //When rent a book btn is clicked this function is called
+    //Adds rent to a specific book in backend
     function rent(isbn) {
         alert("Книгата можете да ја земете од библиотеката!");
         $.ajax({

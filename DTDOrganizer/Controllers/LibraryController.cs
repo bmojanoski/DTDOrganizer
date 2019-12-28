@@ -18,6 +18,8 @@ namespace DTDOrganizer.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Library
+        //Returns the books,courses and documents from the Library controller and
+        //displays them from the Database 
         public ActionResult Index()
         {
             var model = new LibraryViewModel
@@ -29,6 +31,8 @@ namespace DTDOrganizer.Controllers
             
             return View(model);
         }
+
+        //Returns the specific book from database by isbn number
         public ActionResult BookDesc(String isbn)
         {
             var Book = db.BooksModels.Where(book => book.isbn == isbn).First();
@@ -36,12 +40,20 @@ namespace DTDOrganizer.Controllers
         }
 
         // GET: Library/AddBook
+        //Returns a View with a form for creating a new book
         public ActionResult AddBook()
         {
             return View();
         }
 
         // POST: Library/AddBook
+        //Retrieves the data supplied in the form displayed by the AddBook() function,
+        //Makes Http Web Request to Google API by sending isbn number to url and 
+        //if it is successful that book is mapped in Books Model 
+        //Next, it tries to write the new resource item in the database.
+        //Returns the aformentioned View with a form if bad informations are supplied. 
+        //Finally it redirects to the Index action and subsequently returns the main Library View if the database update is successful
+
         [HttpPost]
         public ActionResult AddBook(FormCollection collection)
         {
@@ -75,6 +87,8 @@ namespace DTDOrganizer.Controllers
         }
 
         // POST: Library/RentABook
+        //Goes to database finds the book by isbn which is sent as parametar in function RentABook 
+        //and subtracts the quantity number from that specific book in database
         public ActionResult RentABook(string isbn)
         {
             db.BooksModels.First(b => b.isbn.Equals(isbn)).Qty -= 1;
@@ -85,12 +99,18 @@ namespace DTDOrganizer.Controllers
 
 
         // GET: Library/Create
+        //Returns a View with a form for creating a new course
         public ActionResult AddCourse()
         {
             return View();
         }
 
         // POST: Library/Create
+        //Parametars in functions are mapped to Courses Model 
+        //Next, it tries to write the new course in the database.
+        //Returns the aformentioned View with a form if bad informations are supplied. 
+        //Finally it redirects to the Index action and subsequently returns the main Library View if the database update is successful
+
         [HttpPost]
         public ActionResult AddCourse(FormCollection collection)
         {
@@ -114,12 +134,17 @@ namespace DTDOrganizer.Controllers
         }
 
         // GET: Library/Create
+        //Returns a View with a form for creating a new document
         public ActionResult AddDocument()
         {
             return View();
         }
 
         // POST: Library/Create
+        //Mapping the parametars in function
+        //Next, it tries to write the new document in the database.
+        //Returns the aformentioned View with a form if bad informations are supplied. 
+        //Finally it redirects to the Index action and subsequently returns the main Library View if the database update is successful
         [HttpPost]
         public ActionResult AddDocument(DocumentUploadModel document)
         {

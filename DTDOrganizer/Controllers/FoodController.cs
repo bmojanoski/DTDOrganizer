@@ -9,11 +9,15 @@ using System.Web.Mvc;
 namespace DTDOrganizer.Controllers
 {
     //Handles the HTTP requests for the Food module
+    //Convention: If an action returns a View with no parameters(ex. return View()), 
+    //the View's name is [action_name].cshtml under the ~/Views/Food folder;
     [Authorize]
     public class FoodController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Food
+        //Returns the restaurants and daily orders from the Food controller and
+        //displays the food orders for the current day and all the restaurants from the Database 
         public ActionResult Index()
         {
             FoodViewModel model = new FoodViewModel
@@ -27,6 +31,9 @@ namespace DTDOrganizer.Controllers
         }
 
         // POST: Food/PlaceOrder
+        //tries to write the new order request in the database.
+        //Returns the aformentioned View with a form if bad informations are supplied. 
+        //Finally it redirects to the Index action and subsequently returns the main Food View if the database update is successful
         [HttpPost]
         public ActionResult PlaceOrder(string order, string restaurant)
         {
@@ -49,7 +56,9 @@ namespace DTDOrganizer.Controllers
 
             return Json(new { redirectToUrl = Url.Action("Index", "Food") });
         }
+
         // GET: Food/AddRestaurant
+        //Returns a View with a form for creating a new restaurant
         public ActionResult AddRestaurant()
         {
 
@@ -57,6 +66,13 @@ namespace DTDOrganizer.Controllers
         }
 
         // POST: Food/AddRestaurant
+        //Retrieves the data supplied in the form displayed by the AddRestaurant() function,
+        //then it retrieves the image for the resource uploaded by the user, saves it and \
+        //adds it's path to the restaurant  information.
+        //Next, it tries to write the new resource item in the database.
+        //Returns the aformentioned View with a form if bad informations are supplied. 
+        //Finally it redirects to the Index action and subsequently returns the main Food View if the database update is successful
+
         [HttpPost]
         public ActionResult AddRestaurant(RestaurantViewModel model)
         {
@@ -87,6 +103,8 @@ namespace DTDOrganizer.Controllers
         }
 
         // POST: Food/Delete
+        //Tries to find the food item with the specific id supplied as a parameter and
+        //if the food item is valid it is removed from the database
         [HttpPost]
         public ActionResult Delete(int id)
         {

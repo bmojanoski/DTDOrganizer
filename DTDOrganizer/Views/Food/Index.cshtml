@@ -108,6 +108,8 @@
 @section scripts{
 
     <script>
+
+        //Opens the menu photo to full screen
         $(document).on('click', '.img-enlargable', function (e) {
             //handler code here
 
@@ -125,10 +127,7 @@
                 $(this).remove();
             }).appendTo('body');
         });
-    </script>
-   
-    
-    <script>
+
         Storage.prototype.setObj = function (key, obj) {
             return this.setItem(key, JSON.stringify(obj))
         }
@@ -136,7 +135,7 @@
             return JSON.parse(this.getItem(key))
         }
 
-
+        // Adds new order to backend
         $(document).on('click', '#placeOrder', function (e) {
             var radioValue = $("input[name='optradio']:checked").parent('label').text();
             var order = $("#order").val();

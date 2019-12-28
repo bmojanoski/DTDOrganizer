@@ -1,7 +1,9 @@
-﻿window.addEventListener("load", function () {
+﻿//Loads menu on start
+window.addEventListener("load", function () {
     showBooks();
 });
 
+//Makes select effect on menu and opens specific partial view
 function showBooks() {
     $(".books").show();
     $(".courses").hide();
@@ -14,6 +16,7 @@ function showBooks() {
     $('.odocs').css('font-size', '0.9rem');
 }
 
+//Makes select effect on menu and opens specific partial view
 function showCourses() {
     $(".books").hide();
     $(".otherdocs").hide();
@@ -27,6 +30,8 @@ function showCourses() {
     $('.odocs').css('font-size', '0.9rem');
 
 }
+
+//Makes select effect on menu and opens specific partial view
 function showOther() {
     $(".books").hide();
     $(".courses").hide();
