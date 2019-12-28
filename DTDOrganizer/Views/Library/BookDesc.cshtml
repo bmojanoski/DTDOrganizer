@@ -1,0 +1,56 @@
+﻿@model DTDOrganizer.Models.BooksModel
+@{
+    ViewBag.Title = "BookDesc";
+}
+
+<script>
+    $(".navbar-img").remove();
+    $(".navbar-brand").append("<a class=\" text-white\" href=\"/Library/Index/\"><i class=\"fa fa-angle-left\"></i> Back</a>");
+</script>
+
+<!-- Description -->
+<div class="desc mt-4">
+    <div class="row">
+        @if (Model != null)
+        {
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12 mb-4">
+                <div class="card border-0 mx-4 " style="background-color: transparent;">
+                    <img src="@Model.imagePath" class="card-img-top mx-auto pt-2 shadow rounded h-50 w-75">
+                    <div class="card-body text-center p-0 pt-4">
+                        <div class="card-text h4">@Model.title</div>
+                        <p class="lead">
+                            @Model.publisher
+                        </p>
+                        <div class="text-center">
+                            <i class="fa fa-star "></i>   @Model.rating
+                            <i class="fa fa-book"></i>   @Model.pages
+                            <i class="fa fa-calendar"></i>   @Model.publishedDate
+                        </div>
+                        <button class="btn  rounded mt-3 rent font-weight-bold" onclick="rent();"> Rent this book! </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="h4">
+                    Description
+                </div>
+                <p class="lead">
+                    @Model.description
+                </p>
+            </div>
+        }
+
+    </div>
+</div>
+<style>
+    .rent {
+        font-size: 100%;
+        border-radius: 3rem;
+        letter-spacing: .1rem;
+        font-weight: bold;
+        padding: .3rem;
+        background-color: #fcebbf;
+        border-color: #fcebbf;
+        width: 30vh;
+        color:#e7c266;
+    }
+</style>

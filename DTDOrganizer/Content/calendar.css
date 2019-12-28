@@ -1,0 +1,55 @@
+﻿.tooltip {
+    opacity: 1;
+}
+.alert-primary {
+    background-color: #ced6e3;
+    border-color: #ced6e3;
+}
+.btn:focus {
+    outline: none;
+}
+
+.btn:hover {
+    outline: none !important
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+    .form-group input {
+        height: auto;
+        border-radius: 3rem;
+    }
+
+
+.alert-primary {
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .4rem;
+}
+.btnEvent, .btnCreate {
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .3rem;
+    background-color: #7babed;
+    border-color: #7babed;
+    width:30vh;
+}
+
+.btnBack {
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    padding: .2rem;
+    background-color: #ced6e3;
+    border-color: #ced6e3;
+    color: white;
+    width: 25vh;
+}
+

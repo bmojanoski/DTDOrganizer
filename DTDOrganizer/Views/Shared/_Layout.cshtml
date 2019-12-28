@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | DTD Organizer</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="https://unpkg.com/popper.js"></script>
+    <script src="https://unpkg.com/tooltip.js"></script>
+
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+   
+    <link href='~/Content/fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='~/Content/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='~/Content/fullcalendar/packages/timegrid/main.css' rel='stylesheet' />
+    <link href='~/Content/fullcalendar/packages/list/main.css' rel='stylesheet' />
+
+    <script src='~/Content/fullcalendar/packages/core/main.js'></script>
+    <script src='~/Content/fullcalendar/packages/daygrid/main.js'></script>
+    <script src='~/Content/fullcalendar/packages/interaction/main.js'></script>
+    <script src='~/Content/fullcalendar/packages/timegrid/main.js'></script>
+    <script src='~/Content/fullcalendar/packages/list/main.js'></script>
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-custom shadow">
+            <a class="navbar-brand" href="#">
+                <img src="~/Content/Images/logobrand-01.png" class="navbar-img" width="30" height="30" alt="">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">  </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="/Calendar/Index" class="nav-link">Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Resources/Index" class="nav-link">Resources</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Library/Index" class="nav-link">Library</a>
+                    </li>
+                    <li class="nav-item ">
+
+                        <a href="/Food/Index" class="nav-link">Food</a>
+                    </li>
+                    <li class="nav-item">
+                        <hr style="background-color:white;" />
+                    </li>
+
+                    @Html.Partial("_LoginPartial")
+                </ul>
+
+            </div>
+            
+        </nav>
+
+        }
+
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+    </body>
+</html>

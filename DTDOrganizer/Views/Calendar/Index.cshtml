@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "Calendar";
+}
+
+<!-- Navbar -->
+<nav class="navbar navbar-light  justify-content-center calendarIndex">
+    <form class="form-inline mb-3 ">
+        <button id="calendarMonthView" class="btn btn-white" type="button">
+            Month
+        </button>
+        <button id="calendarWeekView" class="btn btn-white" type="button">
+            Week
+        </button>
+        <button id="calendarEventView" class="btn btn-white" type="button">
+            Events
+        </button>
+    </form>
+</nav>
+<!-- Navbar -->
+
+<div class="row text-center">
+    <div class="col-12">
+        <div class="alert alert-primary text-white" role="alert">
+            You have @ViewBag.data.Count events today!
+        </div>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-12">
+        <a id="calendarAddEvent" class="btn text-white btnEvent" href="/Calendar/AddEvent">Add event!</a>
+    </div>
+</div>
+
+<div style="height:70vh; width:100%">
+    <div id='calendar' style="margin-top:5vh" class="mb-4"></div>
+</div>
+
+<script>
+    var calendarType = '';
+var delete_mode = false;
+
+//Sets the Calendar to the Month View as a default calendar view on page load
+$(function () {
+    $('#calendarMonthView').click();
+});
+
+//Function that handles the calls to the EditEvent() action in the Controller
+//and is triggered on a Calendar Event change registered by the functions eventResize and eventDrop
+//in the Calendar plugin
+function updateEvent(info) {
+    var newEvent = {
+        id: info.event.id,
+        title: info.event.title,
+        description: info.event.extendedProps.description,
+        color: info.event.backgroundColor,
+        allDay: info.event.allDay
+    };
+    if (info.event.allDay) {
+        newEvent.start = info.event.start.toISOString();
+        newEvent.end = null;
+    } else {
+        newEvent.start = info.event.start.toISOString();
+        if (info.event.end == null) {
+            newEvent.end = info.event.start.toISOString();
+        } else {
+            newEvent.end = info.event.end.toISOString();
+        }
+    }
+    $.ajax({
+        url: '@Url.Action("EditEvent","Calendar")',
+        contentType: "application/json",
+        type: "POST",
+        data: JSON.stringify(newEvent),
+        success: function (data) {
+        },
+    });
+}
+
+//Creates the calendar plugin and places it in the <div> with id calendar
+function createCalendar() {
+    var calendarEl = document.getElementById('calendar');
+
+    calendarEl.innerHTML = "";
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: ['dayGrid', 'interaction', 'timeGrid', 'list'],
+        defaultView: calendarType,
+        height: 'parent',
+        themeSystem: 'bootstrap',
+        selectable: true,
+        editable: true,
+        selectMirror: true,
+        eventLimit: true, // for all non-TimeGrid views
+        views: {
+            timeGrid: {
+                eventLimit: 5
+            }
+        },
+        //Properties for rendered Calendar Events like placing event description in a popup
+        eventRender: function (info) {
+            //debugger;
+            info.el.id = "event" + info.event.id;
+            var tooltip = new Tooltip(info.el, {
+                title: info.event.extendedProps.description,
+                placement: 'top',
+                trigger: 'click',
+                container: 'body'
+            });
+        },
+        //Retrieves and renders the Calendar Events in the database
+        events: {
+            url: '/Calendar/GetCalendarData',
+            method: 'POST',
+            failure: function () {
+                alert('there was an error while fetching events!');
+            },
+            textColor: 'black' // a non-ajax option
+        },
+        selectOverlap: function (event) {
+            return event.rendering === 'background';
+        },
+        //Handles the events on a Calendar Event click like deleting and event
+        eventClick: function (info) {
+            if (delete_mode && confirm("Are you sure you want to delete " + info.event.title + "?")) {
+                //debugger;
+                var eventId = info.event.id;
+                $.ajax({
+                    url: '@Url.Action("DeleteEvent","Calendar")',
+                    dataType: "json",
+                    async: false,
+                    type: "POST",
+                    data: { 'id': eventId },
+                    complete: function (data) {
+                        //debugger;
+                        window.location.reload();
+                    }
+                });
+            }
+        },
+        //Handles the changes caused by dragging a Calendar Event on a different day/part of day/week
+        eventDrop: function (info) {
+            var localDate = new Date(info.event.start.toISOString());
+            alert(info.event.title + " was dropped on " + localDate.toString());
+
+            if (!confirm("Are you sure about this change?")) {
+                info.revert();
+            } else {
+                updateEvent(info);
+            }
+
+        },
+        //Handles the changes caused by dragging a Calendar Event downwards and elongating the event duration
+        eventResize: function (info) {
+            var localDate = new Date(info.event.end.toISOString());
+            alert(info.event.title + " end is now " + localDate.toString());
+
+            if (!confirm("Are you sure about this change?")) {
+                info.revert();
+            } else {
+                updateEvent(info);
+            }
+        },
+        businessHours: {
+            //an array of zero-based day of week integers (0=Sunday)
+            daysOfWeek: [1, 2, 3, 4, 5], // Monday - Thursday
+
+            startTime: '08:00',
+            endTime: '18:00',
+        }
+    });
+    calendar.render();
+}
+
+//Checks wether the Delete key was pressed on the user keyboard.
+//If it was it enters in delete mode(the user deletes an event by clicking on it and confirming)
+$(document).keydown(function (e) {
+    if (e.which === 46) {
+        delete_mode = !delete_mode;
+        if (delete_mode) {
+            $("#calendar").css("backgroundColor", "red");
+        } else {
+            $("#calendar").css("backgroundColor", "");
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', createCalendar);
+
+//The '.on("click"...)' functions bellow handle changing between different calendar views
+$('#calendarMonthView').on("click", function () {
+    calendarType = 'dayGridMonth';
+
+    $('#calendarMonthView').css('font-size', '1.25rem');
+    $('#calendarWeekView').css('font-size', '0.9rem');
+    $('#calendarEventView').css('font-size', '0.9rem');
+    createCalendar();
+
+});
+
+$('#calendarWeekView').on("click", function () {
+    calendarType = 'timeGridWeek';
+    $('#calendarWeekView').css('font-size', '1.25rem');
+    $('#calendarMonthView').css('font-size', '0.9rem');
+    $('#calendarEventView').css('font-size', '0.9rem');
+    createCalendar();
+});
+
+$('#calendarEventView').on("click", function () {
+    calendarType = 'listWeek';
+    console.log("clicked")
+    $('#calendarEventView').css('font-size', '1.25rem');
+    $('#calendarMonthView').css('font-size', '0.9rem');
+    $('#calendarWeekView').css('font-size', '0.9rem');
+    createCalendar();
+});
+
+</script>
+
+<link href="~/Content/calendar.css" rel="stylesheet" />

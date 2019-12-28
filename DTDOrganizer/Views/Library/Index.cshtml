@@ -1,0 +1,123 @@
+﻿@model DTDOrganizer.Models.LibraryViewModel
+@{
+    ViewBag.Title = "Library";
+}
+<!-- Navbar -->
+<nav class="navbar navbar-light  justify-content-center">
+    <form class="form-inline mb-3 ">
+        <button class="btn btn-white blib" type="button" onclick="showBooks()">Book Library</button>
+        <button class="btn btn-white bcourse" type="button" onclick="showCourses()">Courses</button>
+        <button class="btn btn-white odocs" type="button" onclick="showOther()">Other docs</button>
+    </form>
+</nav>
+<div class="row text-center">
+    <div class="col-12">
+        <a id="libraryAddBook" class="btn btnAddBook text-white mb-3" href="/Library/AddBook">Add book!</a>
+        <a id="libraryAddCourse" class="btn btnAddCourse text-white mb-3" href="/Library/AddCourse">Add Course!</a>
+        <a id="libraryAddDocument" class="btn btnAddDocument text-white mb-3" href="/Library/AddDocument">Add Document!</a>
+    </div>
+</div>
+
+<!-- Navbar -->
+<!-- Book library -->
+<div class="container books">
+
+    <div class="row">
+
+        @if (Model.books.Count != 0)
+        {
+            foreach (var book in Model.books)
+            {
+                <!-- Book -->
+                <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
+                    <div class="card border-0 rounded shadow" onclick="window.location.href='description.html'">
+                        <a href="~/Library/BookDesc?isbn=@book.isbn">
+                            <img src="@book.imagePath" class="card-img-top ">
+                            <div class="card-body text-left p-0 pt-3 pl-3 ">
+                                <div class="card-text text-black">@book.title</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!--/Book -->
+            }
+        }
+    </div>
+</div>
+<!-- /Book library -->
+<!-- Courses -->
+<div class="container courses">
+    <div class="row">
+
+        @if (Model.courses.Count != 0)
+        {
+            foreach (var course in Model.courses)
+            {
+                <!-- Course -->
+                <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
+                    <div class="card border-0 rounded shadow">
+                        <a href="@course.link" />
+                        <img src="~/Content/Images/Library/onlineCourses.jpg" class="card-img-top shadow rounded" />
+                        <div class="card-body text-left p-0 pt-3 pl-3 ">
+                            <div class="card-text text-black-50">@course.name</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Course -->
+            }
+        }
+
+    </div>
+</div>
+<!-- /Courses -->
+<!-- Other docs -->
+<div class="container otherdocs">
+    <div class="row">
+        @if (Model.documents.Count != 0)
+        {
+            foreach (var document in Model.documents)
+            {
+                <!-- Document -->
+                
+                <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
+                    <div class="card border-0 rounded shadow">
+                        <a href="../@document.path" />
+                        <img src="~/Content/Images/Library/onlineCourses.jpg" class="card-img-top  " />
+                        <div class="card-body text-left p-0 pt-3 pl-3 ">
+                            <div class="card-text text-black-50">@document.name</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Document -->
+            }
+        }
+        <!-- Docs -->
+        @*<div class="col-xl-2 col-md-3 col-sm-3 col-4 mb-4">
+            <div class="card border-0">
+                <a href="http://www.mtsp.gov.mk/WBStorage/Files/PT_Zakon_za_Rabotnite_odnosi_158_09122010.pdf">
+                    <img src="~/Content/Images/Library/docs.jpg" class="card-img-top shadow rounded" />
+                    <div class="card-body text-left p-0 pt-2">
+                        <div class="card-text text-black-50">Правилник за прекувремено работење</div>
+                    </div>
+            </div>
+        </div>*@
+        <!-- /Docs -->
+        <!-- Docs -->
+        @*<div class="col-xl-2 col-md-3 col-sm-3 col-4 mb-4">
+            <div class="card border-0">
+                <a href="http://www.mtsp.gov.mk/WBStorage/Files/PT_Zakon_za_Rabotnite_odnosi_158_09122010.pdf">
+                    <img src="~/Content/Images/Library/docs.jpg" class="card-img-top shadow rounded" />
+                    <div class="card-body text-left p-0 pt-2">
+                        <div class="card-text text-black-50">Статут на компанијата</div>
+                    </div>
+            </div>
+        </div>*@
+        <!-- /Docs -->
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/library.js")
+}
+<link href="~/Content/library.css" rel="stylesheet" />

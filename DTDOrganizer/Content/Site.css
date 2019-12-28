@@ -1,0 +1,74 @@
+﻿body {
+    font-family: 'Roboto', sans-serif !important;
+    background-image: none;
+    background-color: #f3f5f7;
+}
+html {
+    font-family: 'Roboto', sans-serif !important;
+    background-image: none;
+    background-color: #f3f5f7;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+
+}
+
+.nav-link{
+    font-size: 1.1em;
+    font-weight: bold;
+    color:white!important;
+}
+
+.bg-custom {
+    background-color: #7babed;
+}
+.navbar-light .navbar-toggler {
+    border-color: #7babed;
+}
+
+
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+    .form-label-group input {
+        height: auto;
+        border-radius: 3rem;
+    }
+
+    .form-label-group > input,
+    .form-label-group > label {
+        padding: var(--input-padding-y) var(--input-padding-x);
+    }
+
+    .form-label-group > label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        /* Override default `<label>` margin */
+        line-height: 1.5;
+        color: #000000;
+        border-radius: .25rem;
+        transition: all .1s ease-in-out;
+    }

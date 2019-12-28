@@ -1,0 +1,32 @@
+﻿.rounded {
+    border-radius: 1rem !important;
+}
+
+.books, .courses, .otherdocs {
+    display: none;
+}
+.card{
+    height:40vh;
+    
+}
+
+.btnAddDocument, .btnAddCourse, .btnAddBook{
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .3rem;
+    background-color: #7babed;
+    border-color: #7babed;
+    width: 30vh;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+    .form-group input {
+        height: auto;
+        border-radius: 3rem;
+    }

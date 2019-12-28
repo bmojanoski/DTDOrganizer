@@ -1,0 +1,75 @@
+﻿body {
+    background-image: url("/Content/Images/login.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    --input-padding-x: 1.3rem;
+    --input-padding-y: .35rem;
+    height: 100vh;
+    color:white;
+}
+
+
+#container {
+    padding-top: 8vh;
+    background-color: rgba(60, 60, 60, 0.3);
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(2, 2, 2, 0.1);
+    height: 100vh;
+}
+
+
+
+.form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+    .form-group input {
+        height: auto;
+        border-radius: 3rem;
+    }
+
+    .form-group > input,
+    .form-group > label {
+        padding: var(--input-padding-y) var(--input-padding-x);
+    }
+
+    .form-label-group > label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        /* Override default `<label>` margin */
+        line-height: 1.5;
+        color: #000000;
+        border-radius: .25rem;
+        transition: all .1s ease-in-out;
+    }
+
+.registerbtn {
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    padding: .5rem;
+    background-color: #fde7ab;
+    border-color: #fde7ab;
+    margin-top: 4vh;
+    margin-bottom: 2vh;
+    color: white;
+    width: 30vh;
+}
+
+.backbtn {
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    padding: .5rem;
+    background-color: #ced6e3;
+    border-color: #ced6e3;
+    color: white;
+    width: 20vh;
+}

@@ -1,0 +1,65 @@
+﻿@using DTDOrganizer.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+<link href="~/Content/login.css" rel="stylesheet" />
+
+<div class="container py-3" id="loginForm">
+    <div class="row ">
+        <div class="col-auto">
+            <div class="mx-auto w-50 h-100 p-3 rounded text-white">
+                <img class="img-fluid" src="~/Content/Images/07.png">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-xl-6  col-sm-12 col-md-12">
+            <div class="card card-signin">
+                <div class="card-body">
+                    <h3 class="card-title text-center text-white font-weight-bold mb-4">Welcome back!</h3>
+
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-dark", style = "font-weight:bold;" })
+                        <div class="form-label-group">
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-dark", style = "font-weight:bold;" })
+                            @Html.TextBoxFor(m => m.Email, new { id = "inputEmail", placeholder = "Email", @class = "form-control" })
+                        </div>
+
+                        <div class="form-label-group">
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-dark", style = "font-weight:bold;" })
+                            @Html.PasswordFor(m => m.Password, new { id = "inputPassword", placeholder = "Password", @class = "form-control" })
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-6  col-sm-12 col-md-12">
+                                <div class="custom-control custom-checkbox " style="display:none;">
+                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
+                                    @Html.LabelFor(m => m.RememberMe, new { @class = "custom-control-label" })
+                                </div>
+                            </div>
+                            @*<div class="col-6 text-right  mb-3">
+                                    <label><a href="~/Views/Account/ForgotPassword.cshtml" class="text-light"></a></label>
+                                    @Html.ActionLink("Forgot password?", "ForgotPassword", new { @class = "text-primary" })
+                                </div>*@
+                        </div>
+                        <button class="btn btn-sm  btn-primary btn-block text-uppercase btn-signIn mt-3" value="Log in" type="submit">Sign in</button>
+                        <hr class="my-4">
+                    }
+
+                    <div class="text-center pt-3">
+                        @Html.ActionLink("Don't have account? Sign up!", "Register")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

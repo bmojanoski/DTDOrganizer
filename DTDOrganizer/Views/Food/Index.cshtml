@@ -1,0 +1,224 @@
+﻿@model DTDOrganizer.Models.FoodViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+    <div class="container text-center">
+
+        <div class="row text-center">
+            <div class="col-12">
+                <a id="foodAddRestaurant" class="btn btnAddRestaurant text-white mt-4" href="/Food/AddRestaurant">Add Restaurant</a>
+            </div>
+        </div>
+        <div class="row mt-3 mb-4">
+            <div class="col-12 col-md-6 shadow bg-white" style="padding:0">
+
+                <table class="table table-hover bg-white border-top-0">
+                    <thead class="bg-white">
+                        <tr>
+                            <th scope="col">Restaurant name</th>
+                            <th scope="col">Price range</th>
+                            <th scope="col">Menu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var restaurant in Model.restaurants)
+                        {
+                            <tr class="bg-white">
+                                <td>@restaurant.name</td>
+                                @switch (restaurant.priceRange)
+                                {
+                                    case DTDOrganizer.Models.priceRange.cheap:
+                                        <td>$</td>
+                                        break;
+                                    case DTDOrganizer.Models.priceRange.medium:
+                                        <td>$$</td>
+                                        break;
+                                    case DTDOrganizer.Models.priceRange.expensive:
+                                        <td>$$$</td>
+                                        break;
+                                }
+                                <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="@restaurant.menuImage" /></td>
+                            </tr>
+                        }
+                        @*<tr class="">
+                            <td>Royal burger</td>
+                            <td>$</td>
+                            <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="http://royalburger.com.mk/wp-content/uploads/2019/06/Meni-royal-burger.jpg" /></td>
+                        </tr>
+                        <tr>
+                            <td>Fitness house</td>
+                            <td>$$</td>
+                            <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="http://royalburger.com.mk/wp-content/uploads/2019/06/Meni-royal-burger.jpg" /></td>
+                        </tr>
+                        <tr>
+                            <td>Amigos</td>
+                            <td>$$$</td>
+                            <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="http://royalburger.com.mk/wp-content/uploads/2019/06/Meni-royal-burger.jpg" /></td>
+                        </tr>*@
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-5 col-12 col-sm-10 col-md-6 shadow bg-white" >
+                <div class="row">
+                    <div class="col-12 bg-white border-bottom d-flex flex-column justify-content-center" style="height:50px; border-bottom-color:antiquewhite">
+                        <h5 class="text-muted">Your order:</h5>
+                    </div>
+                    <div class="col-12 d-flex flex-row mt-2">
+                        <p class="font-weight-bold mr-4">Step 1: Pick a restaurant</p>
+                        <div class="d-flex flex-column align-items-start">
+                            @foreach (var restaurant in Model.restaurants)
+                            {
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio" checked>@restaurant.name</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex flex-row mt-2 border-top pt-3 pb-3" style="border-top-color:antiquewhite">
+                        <p class="font-weight-bold mr-4">Step 2: Write your order</p>
+                        <input type="text" class="form-control" id="order" placeholder="hamburger">
+                    </div>
+                    <div class="col-12 d-flex flex-row mt-2 border-top pt-2 pb-2" style="border-top-color:antiquewhite">
+                        <p class="font-weight-bold mr-4">Step 3: Place your order</p>
+                        <button class="btn text-white " id="placeOrder">Place order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-12 shadow bg-white " style="padding:0">
+                <h4 class="mt-2 mb-3">Today's orders(@DateTime.Now.Date.ToString("dd/MM/yyyy")):</h4>
+                <table class="table table-hover border-top-0" id="ordersTable">
+                    <thead class="bg-white">
+                        <tr>
+
+                            <th scope="col"></th>
+                            <th scope="col">Restaurant name</th>
+                            <th scope="col">Order description</th>
+                            <th scope="col">Employee name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.dailyOrders.Count != 0)
+                        {
+                            foreach (var order in Model.dailyOrders)
+                            {
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">@order.restaurantName</th>
+                                    <th scope="col">@order.order</th>
+                                    <th scope="col">@order.employee</th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@section scripts{
+
+    <script>
+        $(document).on('click', '.img-enlargable', function (e) {
+            //handler code here
+
+            var src = $(this).attr('src');
+            
+            //debugger;
+            $('<div>').css({
+                background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
+                backgroundSize: 'contain',
+                width: '100%', height: '100%',
+                position: 'fixed',
+                zIndex: '10000',
+                top: '0', left: '0',
+                cursor: 'zoom-out'
+            }).click(function () {
+                $(this).remove();
+            }).appendTo('body');
+        });
+    </script>
+   
+    
+    <script>
+        Storage.prototype.setObj = function (key, obj) {
+            return this.setItem(key, JSON.stringify(obj))
+        }
+        Storage.prototype.getObj = function (key) {
+            return JSON.parse(this.getItem(key))
+        }
+
+
+        $(document).on('click', '#placeOrder', function (e) {
+            var radioValue = $("input[name='optradio']:checked").parent('label').text();
+            var order = $("#order").val();
+            var table = $("#ordersTable");
+            var array = localStorage.getObj('ordersArray');
+            $.ajax({
+                url: '@Url.Action("PlaceOrder","Food")',
+                dataType: "json",
+                type: "POST",
+                data: {order: order, restaurant: radioValue},
+                success: function (data) {
+                },
+            });
+            if (array == null) {
+                array = new Array();
+                rowNum = 1;
+            }
+            else {
+                rowNum = parseInt(array[array.length-1].num, 10) + 1;
+            }
+
+            var orderObject = {
+                restaurant: radioValue,
+                order: order,
+                num: rowNum
+            };
+
+
+            //array.push(orderObject);
+            //localStorage.setObj('ordersArray', array);
+
+            //if (order != "" && order != undefined && order != null) {
+            //    $('#ordersTable tr:last').after('<tr><th scope="row">' + rowNum + '</th><td>' + radioValue + '</td><td>' + order + '</td><td>David</td></tr>');
+            //}
+
+        });
+
+        $(document).ready(function () {
+            //var array = localStorage.getObj('ordersArray');
+
+            //if (array != null) {
+
+            //    array.forEach(function (i) {
+            //        $('#ordersTable tr:last').after('<tr><th scope="row">' + i.num + '</th><td>' + i.restaurant + '</td><td>' + i.order + '</td><td>David</td></tr>');
+            //    });
+            //}
+        });
+    </script>
+    }
+
+<style>
+.btnAddRestaurant{
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .3rem;
+    background-color: #7babed;
+    border-color: #7babed;
+    width:30vh;
+}
+#placeOrder{
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .3rem;
+    background-color: #7babed;
+    border-color: #7babed;
+    width:30vh;
+}
+</style>

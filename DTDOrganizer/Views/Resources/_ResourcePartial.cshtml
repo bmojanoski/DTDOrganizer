@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DTDOrganizer.Models.ResourcesAdminModel>
+    <div class="row" style="height:100%; margin-bottom:10vh;">
+        @foreach (var item in Model)
+        {
+            <div class="mt-2 mb-4 col-sm-12 col-md-6 col-lg-4">
+                <div class="card shadow text-center">
+                    <img src="@Url.Content(item.Image)" class=" mx-auto mt-2 card-img-top " style="width:200px; height:200px;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description.</p>
+                        <button id="@item.Id" onClick="location.href='@Url.Action("RequestAnItem", "Resources", new { id = item.Id })'" class="btn btnRequest text-white">Request</button>
+                        @*It should be displayable only for HR*@
+                        <button id="@item.Id" onClick="deleteAnItem(this)" class="btn btnDelete text-white">Delete</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <style>
+        .btnDelete{
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .3rem;
+    background-color: #ced6e3;
+    border-color: #ced6e3;
+    width:10vh;
+        }
+        .btnRequest{
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .3rem;
+    background-color: #7babed;
+    border-color: #7babed;
+    width:15vh;
+        }
+    </style>
