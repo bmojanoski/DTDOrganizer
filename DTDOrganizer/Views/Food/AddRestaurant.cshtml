@@ -1,14 +1,14 @@
 ﻿@model DTDOrganizer.Models.RestaurantViewModel
 
-@if (User.IsInRole("humanResources") || User.IsInRole("admin"))
+@if (User.IsInRole("humanResources") || User.IsInRole("Administrator"))
 {
-    @{
+    {
         ViewBag.Title = "AddRestaurant";
     }
 
     <h2>AddRestaurant</h2>
 
-    @using (Html.BeginForm(Html.BeginForm("AddRestaurant", "Food", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" })))
+    using (Html.BeginForm(Html.BeginForm("AddRestaurant", "Food", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" })))
     {
         @Html.AntiForgeryToken()
 

@@ -1,8 +1,8 @@
 ﻿@model DTDOrganizer.Models.ResourcesAdminViewModel
 
-@if (User.IsInRole("humanResources") || User.IsInRole("admin"))
+@if (User.IsInRole("humanResources") || User.IsInRole("Administrator"))
 {
-    @{
+    {
         ViewBag.Title = "CreateResource";
     }
 
@@ -11,7 +11,7 @@
         $(".navbar-brand").append("<a class=\" text-white\" href=\"/Resources/Index/\"><i class=\"fa fa-angle-left\"></i> Back</a>");
     </script>
 
-    @using (Html.BeginForm())
+    using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 

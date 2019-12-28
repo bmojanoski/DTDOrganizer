@@ -41,7 +41,16 @@
     border-color: #7babed;
     width:30vh;
 }
-
+.btnEventDelete {
+    font-size: 100%;
+    border-radius: 3rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: .3rem;
+    background-color: #ced6e3;
+    border-color: #ced6e3;
+    width: 23vh;
+}
 .btnBack {
     font-size: 100%;
     border-radius: 3rem;
@@ -52,4 +61,5 @@
     color: white;
     width: 25vh;
 }
+
 

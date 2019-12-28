@@ -40,6 +40,3 @@ function showOther() {
     $('.blib').css('font-size', '0.9rem');
     $('.bcourse').css('font-size', '0.9rem');
 }
-function rent() {
-    alert("Книгата која ја изнајмувате ");
-}

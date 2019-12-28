@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201912262332244_addedUserName.Designer.cs">
       <DependentUpon>201912262332244_addedUserName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912281255404_new.cs" />
+    <Compile Include="Migrations\201912281255404_new.Designer.cs">
+      <DependentUpon>201912281255404_new.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BooksModel.cs" />
@@ -664,6 +668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912262332244_addedUserName.resx">
       <DependentUpon>201912262332244_addedUserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912281255404_new.resx">
+      <DependentUpon>201912281255404_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

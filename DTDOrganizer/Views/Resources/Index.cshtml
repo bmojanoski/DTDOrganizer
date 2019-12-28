@@ -7,98 +7,101 @@
         <button id="OfficeButton" class="btn btn-white btn-sm " type="button">Office</button>
         <button id="WorkMaterials" class="btn btn-white btn-sm" type="button">Work Materials</button>
         <button id="UtilitiesButton" class="btn btn-white btn-sm" type="button">Utilities</button>
-        @if (User.IsInRole("humanResources") || User.IsInRole("admin"))
+        @if (User.IsInRole("humanResources") || User.IsInRole("Administrator"))
         {
             <button id="RequestsButton" class="btn btn-white btn-sm" type="button">Requests</button>
         }
     </form>
 </nav>
 <!-- Navbar -->
-<div class="row text-center">
-    <div class="col-12">
-        <a id="resourcesCreateResource" class="btn btnResource text-white mb-2" href="/Resources/CreateResource">Add resource</a>
+@if (User.IsInRole("humanResources") || User.IsInRole("Administrator"))
+{
+    <div class="row text-center">
+        <div class="col-12">
+            <a id="resourcesCreateResource" class="btn btnResource text-white mb-2" href="/Resources/CreateResource">Add resource</a>
+        </div>
     </div>
-</div>
-<div id="ResourcesContent"></div>
+}
+    <div id="ResourcesContent"></div>
 
-<script>
-    //Sets office resources as default view on page load
-    $(function () {
-        $('#OfficeButton').click();
-    });
-
-    //Makes async call to the controller for deletion of the resource item with a specific id
-    function deleteAnItem(button) {
-        var id = $(button).attr("id");
-        $.ajax({
-            url: '/Resources/Delete',
-            type: 'POST',
-            data: { id: id }
+    <script>
+        //Sets office resources as default view on page load
+        $(function () {
+            $('#OfficeButton').click();
         });
-    }
-    //The '.on("click"...)' functions bellow handle changing between different resource type views and the requests view if authorized
-    $('#OfficeButton').on("click", function () {
 
-    $('#OfficeButton').css('font-size', '1.25rem');
-    $('#WorkMaterials').css('font-size', '0.9rem');
-    $('#UtilitiesButton').css('font-size', '0.9rem');
-    $('#RequestsButton').css('font-size', '0.9rem');
+        //Makes async call to the controller for deletion of the resource item with a specific id
+        function deleteAnItem(button) {
+            var id = $(button).attr("id");
+            $.ajax({
+                url: '/Resources/Delete',
+                type: 'POST',
+                data: { id: id }
+            });
+        }
+        //The '.on("click"...)' functions bellow handle changing between different resource type views and the requests view if authorized
+        $('#OfficeButton').on("click", function () {
 
-        $.ajax({
-            url: '/Resources/Office',
-            dataType: 'html',
-            type: 'POST',
-            success: function (data) {
-                $('#ResourcesContent').html(data);
-            }
+            $('#OfficeButton').css('font-size', '1.25rem');
+            $('#WorkMaterials').css('font-size', '0.9rem');
+            $('#UtilitiesButton').css('font-size', '0.9rem');
+            $('#RequestsButton').css('font-size', '0.9rem');
+
+            $.ajax({
+                url: '/Resources/Office',
+                dataType: 'html',
+                type: 'POST',
+                success: function (data) {
+                    $('#ResourcesContent').html(data);
+                }
+            });
         });
-    });
-    $('#WorkMaterials').on("click", function () {
+        $('#WorkMaterials').on("click", function () {
 
-        $('#WorkMaterials').css('font-size', '1.2rem');
-        $('#OfficeButton').css('font-size', '0.9rem');
-        $('#UtilitiesButton').css('font-size', '0.9rem');
-        $('#RequestsButton').css('font-size', '0.9rem');
+            $('#WorkMaterials').css('font-size', '1.2rem');
+            $('#OfficeButton').css('font-size', '0.9rem');
+            $('#UtilitiesButton').css('font-size', '0.9rem');
+            $('#RequestsButton').css('font-size', '0.9rem');
 
-        $.ajax({
-            url: '/Resources/WorkMaterials',
-            dataType: 'html',
-            type: 'POST',
-            success: function (data) {
-                $('#ResourcesContent').html(data);
-            }
+            $.ajax({
+                url: '/Resources/WorkMaterials',
+                dataType: 'html',
+                type: 'POST',
+                success: function (data) {
+                    $('#ResourcesContent').html(data);
+                }
+            });
         });
-    });
-    $("#UtilitiesButton").on("click", function () {
-        
-        $('#UtilitiesButton').css('font-size', '1.25rem');
-        $('#OfficeButton').css('font-size', '0.9rem');
-        $('#WorkMaterials').css('font-size', '0.9rem');
-        $('#RequestsButton').css('font-size', '0.9rem');
+        $("#UtilitiesButton").on("click", function () {
 
-        $.ajax({
-            url: '/Resources/Utilities',
-            dataType: 'html',
-            type: 'POST',
-            success: function (data) {
-                $('#ResourcesContent').html(data);
-            }
-        });
-    });
-    $("#RequestsButton").on("click", function () {
-        $('#RequestsButton').css('font-size', '1.25rem');
-        $('#OfficeButton').css('font-size', '0.9rem');
-        $('#WorkMaterials').css('font-size', '0.9rem');
-        $('#UtilitiesButton').css('font-size', '0.9rem');
-        $.ajax({
-            url: '/Resources/Requests',
-            dataType: 'html',
-            type: 'POST',
-            success: function (data) {
-                $('#ResourcesContent').html(data);
-            }
-        });
-    });
-</script>
+            $('#UtilitiesButton').css('font-size', '1.25rem');
+            $('#OfficeButton').css('font-size', '0.9rem');
+            $('#WorkMaterials').css('font-size', '0.9rem');
+            $('#RequestsButton').css('font-size', '0.9rem');
 
-<link href="~/Content/resources.css" rel="stylesheet" />
+            $.ajax({
+                url: '/Resources/Utilities',
+                dataType: 'html',
+                type: 'POST',
+                success: function (data) {
+                    $('#ResourcesContent').html(data);
+                }
+            });
+        });
+        $("#RequestsButton").on("click", function () {
+            $('#RequestsButton').css('font-size', '1.25rem');
+            $('#OfficeButton').css('font-size', '0.9rem');
+            $('#WorkMaterials').css('font-size', '0.9rem');
+            $('#UtilitiesButton').css('font-size', '0.9rem');
+            $.ajax({
+                url: '/Resources/Requests',
+                dataType: 'html',
+                type: 'POST',
+                success: function (data) {
+                    $('#ResourcesContent').html(data);
+                }
+            });
+        });
+    </script>
+
+    <link href="~/Content/resources.css" rel="stylesheet" />

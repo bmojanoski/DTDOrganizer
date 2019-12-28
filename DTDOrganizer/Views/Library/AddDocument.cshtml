@@ -2,7 +2,7 @@
 
 @if (User.IsInRole("humanResources") || User.IsInRole("admin"))
 {
-    @{
+    {
         ViewBag.Title = "AddDocument";
     }
     <script>
@@ -11,7 +11,7 @@
     </script>
 
 
-    @using (Html.BeginForm("AddDocument", "Library", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+    using (Html.BeginForm("AddDocument", "Library", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 

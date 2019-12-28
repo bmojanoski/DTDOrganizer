@@ -26,15 +26,19 @@
     </div>
 </div>
 
-<div class="row text-center">
-    <div class="col-12">
-        <a id="calendarAddEvent" class="btn text-white btnEvent" href="/Calendar/AddEvent">Add event!</a>
-    </div>
-</div>
+
 
 <div style="height:70vh; width:100%">
     <div id='calendar' style="margin-top:5vh" class="mb-4"></div>
 </div>
+
+<div class="row text-center my-3">
+    <div class="col-12">
+        <a id="calendarAddEvent" class="btn text-white btnEvent" href="/Calendar/AddEvent">Add event</a>
+        <a id="calendarDeleteEvent" class="btn text-white btnEventDelete mt-2" href="/Calendar/CORRECT THIS">Delete event</a>
+    </div>
+</div>
+
 
 <script>
     var calendarType = '';
@@ -208,7 +212,6 @@ $('#calendarWeekView').on("click", function () {
 
 $('#calendarEventView').on("click", function () {
     calendarType = 'listWeek';
-    console.log("clicked")
     $('#calendarEventView').css('font-size', '1.25rem');
     $('#calendarMonthView').css('font-size', '0.9rem');
     $('#calendarWeekView').css('font-size', '0.9rem');

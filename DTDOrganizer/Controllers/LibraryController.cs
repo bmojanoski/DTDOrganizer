@@ -80,7 +80,7 @@ namespace DTDOrganizer.Controllers
             db.BooksModels.First(b => b.isbn.Equals(isbn)).Qty -= 1;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json("success");
         }
 
 

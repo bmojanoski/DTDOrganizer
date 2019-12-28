@@ -9,8 +9,11 @@
                         <h5 class="card-title">@item.Name</h5>
                         <p class="card-text">@item.Description.</p>
                         <button id="@item.Id" onClick="location.href='@Url.Action("RequestAnItem", "Resources", new { id = item.Id })'" class="btn btnRequest text-white">Request</button>
-                        @*It should be displayable only for HR*@
-                        <button id="@item.Id" onClick="deleteAnItem(this)" class="btn btnDelete text-white">Delete</button>
+
+                        @if (User.IsInRole("humanResources") || User.IsInRole("Administrator"))
+                        {
+                            <button id="@item.Id" onClick="deleteAnItem(this)" class="btn btnDelete text-white">Delete</button>
+                        }
                     </div>
                 </div>
             </div>
