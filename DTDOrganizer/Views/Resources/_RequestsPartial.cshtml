@@ -1,37 +1,41 @@
 ﻿@model IEnumerable<DTDOrganizer.Models.ResourcesRequestModel>
 
-<table class="table mt-4">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ResourceName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Qty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Urgent)
-        </th>
-        @*<th></th>*@
-    </tr>
+@if (User.IsInRole("humanResources") || User.IsInRole("admin"))
+{
+    <table class="table mt-4">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ResourceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Urgent)
+            </th>
+            @*<th></th>*@
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResourceName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Qty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Urgent)
-        </td>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResourceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Urgent)
+                </td>
+            </tr>
+        }
+
+    </table>
 }
-
-</table>

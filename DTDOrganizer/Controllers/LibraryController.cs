@@ -22,7 +22,7 @@ namespace DTDOrganizer.Controllers
         {
             var model = new LibraryViewModel
             {
-                books = db.BooksModels.ToList(),
+                books = db.BooksModels.Where(b => b.Qty > 0).ToList(),
                 courses = db.CoursesModels.ToList(),
                 documents = db.DocumentsModels.ToList()
             };
@@ -55,6 +55,7 @@ namespace DTDOrganizer.Controllers
                 if (bookInformation.isValid())
                 {
                     BooksModel addBook = new BooksModel(bookInformation);
+                    addBook.Qty = int.Parse(collection["qty"]);
 
                     db.BooksModels.Add(addBook);
                     db.SaveChanges();
@@ -72,6 +73,16 @@ namespace DTDOrganizer.Controllers
                 return View();
             }
         }
+
+        // POST: Library/RentABook
+        public ActionResult RentABook(string isbn)
+        {
+            db.BooksModels.First(b => b.isbn.Equals(isbn)).Qty -= 1;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Library/Create
         public ActionResult AddCourse()

@@ -7,7 +7,10 @@
         <button id="OfficeButton" class="btn btn-white btn-sm " type="button">Office</button>
         <button id="WorkMaterials" class="btn btn-white btn-sm" type="button">Work Materials</button>
         <button id="UtilitiesButton" class="btn btn-white btn-sm" type="button">Utilities</button>
-        <button id="RequestsButton" class="btn btn-white btn-sm" type="button">Requests</button>
+        @if (User.IsInRole("humanResources") || User.IsInRole("admin"))
+        {
+            <button id="RequestsButton" class="btn btn-white btn-sm" type="button">Requests</button>
+        }
     </form>
 </nav>
 <!-- Navbar -->

@@ -34,7 +34,7 @@ namespace DTDOrganizer.Controllers
             {
                 order = order,
                 restaurantName = restaurant,
-                employee = "DEFAULT EMPLOYEE", //This should get value from the authenthicated employee
+                employee = User.Identity.Name, 
                 orderDate = DateTime.Now.Date.ToString("dd/MM/yyyy")
             };
             try
@@ -76,6 +76,8 @@ namespace DTDOrganizer.Controllers
                 }
 
                 db.RestaurantModels.Add(addRestaurant);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             catch

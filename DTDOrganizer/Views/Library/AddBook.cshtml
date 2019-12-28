@@ -1,67 +1,73 @@
 ﻿@model DTDOrganizer.Models.BooksModel
 
-@{
-    ViewBag.Title = "Add Book";
-}
-
-<script>
-    $(".navbar-img").remove();
-    $(".navbar-brand").append("<a class=\" text-white\" href=\"/Library/Index/\"><i class=\"fa fa-angle-left\"></i> Back</a>");
-</script>
-
-@using (Html.BeginForm())
+@if (User.IsInRole("humanResources") || User.IsInRole("admin"))
 {
-    @Html.AntiForgeryToken()
+    @{
+        ViewBag.Title = "Add Book";
+    }
 
-    <div class="form-horizontal mt-4">
-        <h4>Add book</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <label class="ml-3"> Enter ISBN</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.isbn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.isbn, "", new { @class = "text-danger" })
+    <script>
+        $(".navbar-img").remove();
+        $(".navbar-brand").append("<a class=\" text-white\" href=\"/Library/Index/\"><i class=\"fa fa-angle-left\"></i> Back</a>");
+    </script>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal mt-4">
+            <h4>Add book</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="ml-3"> Enter ISBN</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.isbn, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.isbn, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                <p style="color:red">
+                    @if (ViewBag.bookIsbnException != null)
+                    {
+                        @ViewBag.bookIsbnException;
+                    }
+                </p>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Add book" class="btn btnSubmit text-white" />
+                </div>
             </div>
         </div>
-
-        <div>
-            <p style="color:red">
-                @if (ViewBag.bookIsbnException != null)
-                {
-                    @ViewBag.bookIsbnException;
-                }
-            </p>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add book" class="btn btnSubmit text-white" />
-            </div>
-        </div>
-    </div>
+    }
 }
 
-
-<style>
-    .btnSubmit {
-        font-size: 100%;
-        border-radius: 3rem;
-        letter-spacing: .1rem;
-        font-weight: bold;
-        padding: .3rem;
-        background-color: #7babed;
-        border-color: #7babed;
-        width: 30vh;
-    }
-
-    .form-group {
-        position: relative;
-        margin-bottom: 1rem;
-    }
-
-        .form-group input {
-            height: auto;
+    <style>
+        .btnSubmit {
+            font-size: 100%;
             border-radius: 3rem;
+            letter-spacing: .1rem;
+            font-weight: bold;
+            padding: .3rem;
+            background-color: #7babed;
+            border-color: #7babed;
+            width: 30vh;
         }
-</style>
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+            .form-group input {
+                height: auto;
+                border-radius: 3rem;
+            }
+    </style>

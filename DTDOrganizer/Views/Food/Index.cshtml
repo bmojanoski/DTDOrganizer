@@ -41,21 +41,6 @@
                                 <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="@restaurant.menuImage" /></td>
                             </tr>
                         }
-                        @*<tr class="">
-                            <td>Royal burger</td>
-                            <td>$</td>
-                            <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="http://royalburger.com.mk/wp-content/uploads/2019/06/Meni-royal-burger.jpg" /></td>
-                        </tr>
-                        <tr>
-                            <td>Fitness house</td>
-                            <td>$$</td>
-                            <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="http://royalburger.com.mk/wp-content/uploads/2019/06/Meni-royal-burger.jpg" /></td>
-                        </tr>
-                        <tr>
-                            <td>Amigos</td>
-                            <td>$$$</td>
-                            <td><img class="img-enlargable" data-enlargable width="100" style="cursor: zoom-in" src="http://royalburger.com.mk/wp-content/uploads/2019/06/Meni-royal-burger.jpg" /></td>
-                        </tr>*@
                     </tbody>
                 </table>
             </div>
@@ -124,8 +109,7 @@
             //handler code here
 
             var src = $(this).attr('src');
-            
-            //debugger;
+
             $('<div>').css({
                 background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
                 backgroundSize: 'contain',
@@ -163,39 +147,6 @@
                 success: function (data) {
                 },
             });
-            if (array == null) {
-                array = new Array();
-                rowNum = 1;
-            }
-            else {
-                rowNum = parseInt(array[array.length-1].num, 10) + 1;
-            }
-
-            var orderObject = {
-                restaurant: radioValue,
-                order: order,
-                num: rowNum
-            };
-
-
-            //array.push(orderObject);
-            //localStorage.setObj('ordersArray', array);
-
-            //if (order != "" && order != undefined && order != null) {
-            //    $('#ordersTable tr:last').after('<tr><th scope="row">' + rowNum + '</th><td>' + radioValue + '</td><td>' + order + '</td><td>David</td></tr>');
-            //}
-
-        });
-
-        $(document).ready(function () {
-            //var array = localStorage.getObj('ordersArray');
-
-            //if (array != null) {
-
-            //    array.forEach(function (i) {
-            //        $('#ordersTable tr:last').after('<tr><th scope="row">' + i.num + '</th><td>' + i.restaurant + '</td><td>' + i.order + '</td><td>David</td></tr>');
-            //    });
-            //}
         });
     </script>
     }

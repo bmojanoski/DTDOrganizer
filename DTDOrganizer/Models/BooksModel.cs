@@ -19,6 +19,7 @@ namespace DTDOrganizer.Models
         public string publishedDate { get; set; }
         public float rating { get; set; }
         public string imagePath { get; set; }
+        public int Qty { get; set; }
 
         public BooksModel() { }
         public BooksModel(GoogleBooksApiReader bookInformation)

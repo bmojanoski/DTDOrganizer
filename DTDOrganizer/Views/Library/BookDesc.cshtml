@@ -26,7 +26,7 @@
                             <i class="fa fa-book"></i>   @Model.pages
                             <i class="fa fa-calendar"></i>   @Model.publishedDate
                         </div>
-                        <button class="btn  rounded mt-3 rent font-weight-bold" onclick="rent();"> Rent this book! </button>
+                        <button id="@Model.isbn" class="btn  rounded mt-3 rent font-weight-bold" onclick="rent(this.id);"> Rent this book! </button>
                     </div>
                 </div>
                 <hr>
@@ -41,6 +41,18 @@
 
     </div>
 </div>
+<script>
+    function rent(isbn) {
+        $.ajax({
+                url: '@Url.Action("RentABook","Library")',
+                dataType: "json",
+                type: "POST",
+                data: {isbn: isbn},
+                success: function (data) {
+                },
+            });
+    }
+</script>
 <style>
     .rent {
         font-size: 100%;

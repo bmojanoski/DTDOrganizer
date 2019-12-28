@@ -1,60 +1,62 @@
 ﻿@model DTDOrganizer.Models.ResourcesAdminViewModel
 
-@{
-    ViewBag.Title = "CreateResource";
-}
-
-    <script>
-    $(".navbar-img").remove();
-    $(".navbar-brand").append("<a class=\" text-white\" href=\"/Resources/Index/\"><i class=\"fa fa-angle-left\"></i> Back</a>");
-    </script>
-
-@using (Html.BeginForm()) 
+@if (User.IsInRole("humanResources") || User.IsInRole("admin"))
 {
-    @Html.AntiForgeryToken()
-    
-<div class="form-horizontal mt-3">
-    <h4>Create resource</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group mb-3">
-        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div >
-        <div class="col-md-10" >
-            @Html.TextBoxFor(model => model.image, new { type = "file" })
-            @Html.ValidationMessageFor(model => model.image)
-        </div>
-    </div>
-
-        <div class="form-group" >
-            <div class="col-md-offset-2 col-md-10" >
-                <input type="submit" value="Create"  class="btn btnCreate text-white mt-5" />
-            </div>
-        </div>
-    </div>
+    @{
+        ViewBag.Title = "CreateResource";
     }
 
+    <script>
+        $(".navbar-img").remove();
+        $(".navbar-brand").append("<a class=\" text-white\" href=\"/Resources/Index/\"><i class=\"fa fa-angle-left\"></i> Back</a>");
+    </script>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal mt-3">
+            <h4>Create resource</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.image, new { type = "file" })
+                    @Html.ValidationMessageFor(model => model.image)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btnCreate text-white mt-5" />
+                </div>
+            </div>
+        </div>
+    }
+}
 
     <style>
         .btnCreate {
@@ -67,13 +69,14 @@
             border-color: #7babed;
             width: 30vh;
         }
-        .form-group {
-    position: relative;
-    margin-bottom: 1rem;
-}
 
-    .form-group input {
-        height: auto;
-        border-radius: 3rem;
-    }
+        .form-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+            .form-group input {
+                height: auto;
+                border-radius: 3rem;
+            }
     </style>
