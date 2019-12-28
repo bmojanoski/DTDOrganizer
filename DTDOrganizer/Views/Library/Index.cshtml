@@ -21,85 +21,89 @@
     </div>
 }
 
-    <!-- Navbar -->
-    <!-- Book library -->
-    <div class="container books">
+<!-- Navbar -->
+<!-- Book library -->
+<div class="container books">
 
-        <div class="row">
+    <div class="row">
 
-            @if (Model.books.Count != 0)
+        @if (Model.books.Count != 0)
+        {
+            foreach (var book in Model.books)
             {
-                foreach (var book in Model.books)
-                {
-                    <!-- Book -->
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
-                        <div class="card border-0 rounded shadow" onclick="window.location.href='description.html'">
-                            <a href="~/Library/BookDesc?isbn=@book.isbn">
-                                <img src="@book.imagePath" class="card-img-top ">
-                                <div class="card-body text-left p-0 pt-3 pl-3 ">
-                                    <div class="card-text text-black">@book.title</div>
-                                </div>
-                            </a>
-                        </div>
+                <!-- Book -->
+                <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
+                    <div class="card border-0 rounded shadow" onclick="window.location.href='description.html'">
+                        <a href="~/Library/BookDesc?isbn=@book.isbn">
+                            <img src="@book.imagePath" class="card-img-top ">
+                            <div class="card-body text-left p-0 pt-3 pl-3 ">
+                                <div class="card-text text-black">@book.title</div>
+                            </div>
+                        </a>
                     </div>
-                    <!--/Book -->
-                }
+                </div>
+                <!--/Book -->
             }
-        </div>
+        }
     </div>
-    <!-- /Book library -->
-    <!-- Courses -->
-    <div class="container courses">
-        <div class="row">
+</div>
+<!-- /Book library -->
+<!-- Courses -->
+<div class="container courses">
+    <div class="row">
 
-            @if (Model.courses.Count != 0)
+        @if (Model.courses.Count != 0)
+        {
+            foreach (var course in Model.courses)
             {
-                foreach (var course in Model.courses)
-                {
-                    <!-- Course -->
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
-                        <div class="card border-0 rounded shadow">
-                            <a href="@course.link" />
+                <!-- Course -->
+                <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
+                    <div class="card border-0 rounded shadow">
+                        <a href="@course.link">
                             <img src="~/Content/Images/Library/onlineCourses.jpg" class="card-img-top shadow rounded" />
                             <div class="card-body text-left p-0 pt-3 pl-3 ">
                                 <div class="card-text text-black-50">@course.name</div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    <!-- /Course -->
-                }
+                </div>
+                <!-- /Course -->
             }
+        }
 
-        </div>
     </div>
-    <!-- /Courses -->
-    <!-- Other docs -->
-    <div class="container otherdocs">
-        <div class="row">
-            @if (Model.documents.Count != 0)
+</div>
+<!-- /Courses -->
+<!-- Other docs -->
+<div class="container otherdocs">
+    <div class="row">
+        @if (Model.documents.Count != 0)
+        {
+            foreach (var document in Model.documents)
             {
-                foreach (var document in Model.documents)
-                {
-                    <!-- Document -->
+                <!-- Document -->
 
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
-                        <div class="card border-0 rounded shadow">
-                            
-                                <img src="~/Content/Images/Library/onlineCourses.jpg" href="../@document.path" class="card-img-top shadow rounded  " />
-                                <div class="card-body text-left p-0 pt-3 pl-3 ">
-                                    <div class="card-text text-black-50">@document.name</div>
-
+                <div class="col-xl-2 col-md-4 col-sm-6 col-6 mb-4">
+                    <div class="card border-0 rounded shadow">
+                        <a href="../@document.path">
+                            <img src="~/Content/Images/Library/onlineCourses.jpg" class="card-img-top shadow rounded  " />
+                            <div class="card-body text-left p-0 pt-3 pl-3 ">
+                                <div class="card-text text-black-50">
+                                    @document.name
                                 </div>
-                            
-                        </div>
-                    </div>
-                    <!-- /Document -->
-                }
-            }
-        </div>
-    </div>
 
-    @section Scripts {
-        @Scripts.Render("~/Scripts/library.js")
-    }
-    <link href="~/Content/library.css" rel="stylesheet" />
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+                <!-- /Document -->
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/library.js")
+}
+<link href="~/Content/library.css" rel="stylesheet" />

@@ -35,14 +35,14 @@
 <div class="row text-center my-3">
     <div class="col-12">
         <a id="calendarAddEvent" class="btn text-white btnEvent" href="/Calendar/AddEvent">Add event</a>
-        <a id="calendarDeleteEvent" class="btn text-white btnEventDelete mt-2" href="/Calendar/CORRECT THIS">Delete event</a>
+        <a id="calendarDeleteEvent" class="btn text-white btnEventDelete mt-2" onclick="changeToDeleteMode()">Delete mode</a>
     </div>
 </div>
 
 
 <script>
-    var calendarType = '';
-var delete_mode = false;
+var calendarType = '';
+    var delete_mode = false;
 
 //Sets the Calendar to the Month View as a default calendar view on page load
 $(function () {
@@ -181,13 +181,22 @@ function createCalendar() {
 $(document).keydown(function (e) {
     if (e.which === 46) {
         delete_mode = !delete_mode;
+        checkDeleteMode();
+    }
+});
+
+    function checkDeleteMode() {
         if (delete_mode) {
             $("#calendar").css("backgroundColor", "red");
         } else {
             $("#calendar").css("backgroundColor", "");
         }
-    }
-});
+    };
+
+    function changeToDeleteMode() {
+        delete_mode = !delete_mode;
+        checkDeleteMode();
+    };
 
 document.addEventListener('DOMContentLoaded', createCalendar);
 

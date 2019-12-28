@@ -136,10 +136,11 @@ namespace DTDOrganizer.Controllers
                     string _FileName = Path.GetFileName(document.File.FileName);
                     string _path = Path.Combine(Server.MapPath("~/Content/Documents"), _FileName);
                     document.File.SaveAs(_path);
-                    addDocument.path = _path;
+                    addDocument.path = "Content/Documents/" + _FileName;
                 }
 
                 db.DocumentsModels.Add(addDocument);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception e)

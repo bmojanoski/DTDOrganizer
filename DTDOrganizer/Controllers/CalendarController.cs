@@ -21,7 +21,7 @@ namespace DTDOrganizer.Controllers
         //displays the number of events during the present day
         public ActionResult Index()
         {
-            List<CalendarEventModel> dailyEvents = db.CalendarEventModels.ToList().FindAll(e => e.start.StartsWith(DateTime.Now.Date.ToString()));
+            List<CalendarEventModel> dailyEvents = db.CalendarEventModels.ToList().FindAll(e => e.start.StartsWith(DateTime.Now.Date.ToString("yyyy-MM-dd")));
             ViewBag.data = dailyEvents;
             return View();
         }

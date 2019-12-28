@@ -47,7 +47,7 @@ namespace DTDOrganizer.Controllers
                 Console.WriteLine(e.Message);
             }
 
-            return RedirectToAction("Index");
+            return Json(new { redirectToUrl = Url.Action("Index", "Food") });
         }
         // GET: Food/AddRestaurant
         public ActionResult AddRestaurant()
@@ -72,7 +72,7 @@ namespace DTDOrganizer.Controllers
                     string _FileName = Path.GetFileName(model.menuImage.FileName);
                     string _path = Path.Combine(Server.MapPath("~/Content/Images/Restaurants"), _FileName);
                     model.menuImage.SaveAs(_path);
-                    addRestaurant.menuImage = _path;
+                    addRestaurant.menuImage = "~/Content/Images/Restaurants/" + _FileName;
                 }
 
                 db.RestaurantModels.Add(addRestaurant);

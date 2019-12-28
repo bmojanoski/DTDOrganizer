@@ -375,7 +375,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\CalendarData\CalendarEvents.json" />
-    <Content Include="Content\Documents\PT_Zakon_za_Rabotnite_odnosi_158_09122010.pdf" />
     <Content Include="Content\fullcalendar\packages\bootstrap\package.json" />
     <Content Include="Content\fullcalendar\packages\bootstrap\README.md" />
     <Content Include="Content\fullcalendar\packages\core\package.json" />
@@ -405,6 +404,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\index.js.flow" />
+    <Content Include="Content\Documents\PT_Zakon_za_Rabotnite_odnosi_158_09122010.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
