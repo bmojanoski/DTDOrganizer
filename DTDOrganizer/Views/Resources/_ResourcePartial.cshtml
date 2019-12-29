@@ -3,7 +3,10 @@
         @foreach (var item in Model)
         {
             <div class="mt-2 mb-4 col-sm-12 col-md-6 col-lg-4">
-                <div class="card shadow text-center">
+                <div class="card shadow text-center justify-content-center">
+                    <button type="button" class="btn  text-dark">
+                        Orders: <span class="badge badge-primary text-white">4</span>
+                    </button>
                     <img src="@Url.Content(item.Image)" class=" mx-auto mt-2 card-img-top " style="width:200px; height:200px;">
                     <div class="card-body">
                         <h5 class="card-title">@item.Name</h5>
@@ -14,6 +17,7 @@
                         {
                             <button id="@item.Id" onClick="deleteAnItem(this)" class="btn btnDelete text-white">Delete</button>
                         }
+
                     </div>
                 </div>
             </div>

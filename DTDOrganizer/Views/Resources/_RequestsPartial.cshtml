@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DTDOrganizer.Models.ResourcesRequestModel>
 
-@if (User.IsInRole("humanResources") || User.IsInRole("admin"))
+@if (User.IsInRole("humanResources") || User.IsInRole("Administrator"))
 {
     <table class="table mt-4">
         <tr>
@@ -16,7 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Urgent)
             </th>
-            @*<th></th>*@
+
         </tr>
 
         @foreach (var item in Model)
@@ -32,7 +32,14 @@
                     @Html.DisplayFor(modelItem => item.Comment)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Urgent)
+                    @if (item.Urgent == true)
+                    {
+                        <span>Yes</span>
+                    }
+                    else
+                    {
+                        <span>No</span>
+                    }
                 </td>
             </tr>
         }

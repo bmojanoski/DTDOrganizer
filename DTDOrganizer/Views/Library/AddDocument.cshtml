@@ -1,6 +1,6 @@
 ﻿@model DTDOrganizer.Models.DocumentUploadModel
 
-@if (User.IsInRole("humanResources") || User.IsInRole("admin"))
+@if (User.IsInRole("humanResources") || User.IsInRole("Administrator"))
 {
     {
         ViewBag.Title = "AddDocument";
