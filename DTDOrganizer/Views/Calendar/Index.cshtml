@@ -35,6 +35,10 @@
 <div class="row text-center my-3">
     <div class="col-12">
         <a id="calendarAddEvent" class="btn text-white btnEvent" href="/Calendar/AddEvent">Add event</a>
+         </div>
+</div>
+<div class="row text-center my-3">
+    <div class="col-12">
         <a id="calendarDeleteEvent" class="btn text-white btnEventDelete" onclick="changeToDeleteMode()">Delete mode</a>
     </div>
 </div>
@@ -117,7 +121,7 @@ function createCalendar() {
             url: '/Calendar/GetCalendarData',
             method: 'POST',
             failure: function () {
-                alert('there was an error while fetching events!');
+               
             },
             textColor: 'black' // a non-ajax option
         },
@@ -126,7 +130,7 @@ function createCalendar() {
         },
         //Handles the events on a Calendar Event click like deleting and event
         eventClick: function (info) {
-            if (delete_mode && confirm("Are you sure you want to delete " + info.event.title + "?")) {
+            if (delete_mode) {
                 //debugger;
                 var eventId = info.event.id;
                 $.ajax({
@@ -144,7 +148,7 @@ function createCalendar() {
         //Handles the changes caused by dragging a Calendar Event on a different day/part of day/week
         eventDrop: function (info) {
             var localDate = new Date(info.event.start.toISOString());
-            alert(info.event.title + " was dropped on " + localDate.toString());
+           
 
             if (!confirm("Are you sure about this change?")) {
                 info.revert();
@@ -156,7 +160,7 @@ function createCalendar() {
         //Handles the changes caused by dragging a Calendar Event downwards and elongating the event duration
         eventResize: function (info) {
             var localDate = new Date(info.event.end.toISOString());
-            alert(info.event.title + " end is now " + localDate.toString());
+            
 
             if (!confirm("Are you sure about this change?")) {
                 info.revert();

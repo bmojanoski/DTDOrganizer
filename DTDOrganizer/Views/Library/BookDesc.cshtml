@@ -12,6 +12,10 @@
 <!-- Description -->
 <div class="desc mt-4">
     <div class="row justify-content-center">
+        <div class="alert alert-prim text-white col-10" role="alert" style=" top:85vh;position: absolute; z-index: 1000;">
+            Книгата е успешно изнајмена и можете да ја земете од библиотеката!
+        </div>
+
         @if (Model != null)
         {
             <div class="col-xl-6 col-md-12 col-sm-12 col-12 mb-4">
@@ -43,18 +47,21 @@
     </div>
 </div>
 <script>
+    window.addEventListener("load", function () {
+       $(".alert").hide();
+});
+    
     //When rent a book btn is clicked this function is called
     //Adds rent to a specific book in backend
     function rent(isbn) {
-        alert("Книгата можете да ја земете од библиотеката!");
+         $('.alert').show();
         $.ajax({
                 url: '@Url.Action("RentABook","Library")',
                 dataType: "json",
                 type: "POST",
                 data: {isbn: isbn},
             success: function (data) {
-                debugger;
-                window.location.href = "/Library/Index";
+               setTimeout(function(){ window.location.href = "/Library/Index"; }, 2000);
                 },
             });
     }
@@ -70,5 +77,10 @@
         border-color: #fcebbf;
         width: 30vh;
         color:#e7c266;
+    }
+    .alert-prim {
+        color: #004085;
+        background-color:  #7babed;
+        border-color:  #7babed;
     }
 </style>
