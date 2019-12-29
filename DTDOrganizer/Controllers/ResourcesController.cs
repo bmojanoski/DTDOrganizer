@@ -32,7 +32,7 @@ namespace DTDOrganizer.Controllers
                 .Select(o => new ResourcesAdminPartialModel()
                 {
                     Resource = o,
-                    Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name)).Count()
+                    Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name) && !i.done).Select(p => p.Qty).DefaultIfEmpty(0).Sum()
 
                 }
             ).ToList());
@@ -47,7 +47,7 @@ namespace DTDOrganizer.Controllers
             return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.WorkMaterials).Select(o => new ResourcesAdminPartialModel()
             {
                 Resource = o,
-                Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name)).Count()
+                Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name) && !i.done).Select(p => p.Qty).DefaultIfEmpty(0).Sum()
 
             }
             ).ToList());
@@ -62,7 +62,7 @@ namespace DTDOrganizer.Controllers
             return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.Utilities).Select(o => new ResourcesAdminPartialModel()
             {
                 Resource = o,
-                Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name)).Count()
+                Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name) && !i.done).Select(p => p.Qty).DefaultIfEmpty(0).Sum()
 
             }
             ).ToList());
