@@ -13,6 +13,8 @@ using System.Web.Mvc;
 namespace DTDOrganizer.Controllers
 {
     //Handles the HTTP requests for the Library module
+    //Convention: If an action returns a View with no parameters(ex. return View()), 
+    //the View's name is [action_name].cshtml under the ~/Views/Library folder;
     [Authorize]
     public class LibraryController : Controller
     {

@@ -35,7 +35,7 @@
 <div class="row text-center my-3">
     <div class="col-12">
         <a id="calendarAddEvent" class="btn text-white btnEvent" href="/Calendar/AddEvent">Add event</a>
-        <a id="calendarDeleteEvent" class="btn text-white btnEventDelete mt-2" onclick="changeToDeleteMode()">Delete mode</a>
+        <a id="calendarDeleteEvent" class="btn text-white btnEventDelete" onclick="changeToDeleteMode()">Delete mode</a>
     </div>
 </div>
 
@@ -136,7 +136,6 @@ function createCalendar() {
                     type: "POST",
                     data: { 'id': eventId },
                     complete: function (data) {
-                        //debugger;
                         window.location.reload();
                     }
                 });

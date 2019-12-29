@@ -16,33 +16,50 @@
             <th>
                 @Html.DisplayNameFor(model => model.Urgent)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.done)
+            </th>
 
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ResourceName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Qty)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Comment)
-                </td>
-                <td>
-                    @if (item.Urgent == true)
-                    {
-                        <span>Yes</span>
-                    }
-                    else
-                    {
-                        <span>No</span>
-                    }
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResourceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @if (item.Urgent == true)
+            {
+                <span>Yes</span>
+            }
+            else
+            {
+                <span>No</span>
+            }
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => item.done, new { @onclick = "itemIsOrdered("+ item.Id +")" })
+        </td>
+    </tr>
         }
 
     </table>
+
+    <script>
+        function itemIsOrdered(id) {
+            $.ajax({
+                    url: '@Url.Action("ResourceOrdered","Resources")',
+                    dataType: "json",
+                    type: "POST",
+                    data: { 'id': id }
+                });
+        }
+    </script>
 }

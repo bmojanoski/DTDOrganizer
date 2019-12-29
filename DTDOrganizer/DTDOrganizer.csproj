@@ -205,6 +205,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrdersModel.cs" />
     <Compile Include="Models\ResourcesAdminModel.cs" />
+    <Compile Include="Models\ResourcesAdminPartialModel.cs" />
     <Compile Include="Models\ResourcesAdminViewModel.cs" />
     <Compile Include="Models\ResourcesRequestModel.cs" />
     <Compile Include="Models\ResourcesRequestViewModel.cs" />

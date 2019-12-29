@@ -28,7 +28,14 @@ namespace DTDOrganizer.Controllers
         [HttpPost]
         public ActionResult Office()
         {
-            return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.Office));
+            return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.Office)
+                .Select(o => new ResourcesAdminPartialModel()
+                {
+                    Resource = o,
+                    Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name)).Count()
+
+                }
+            ).ToList());
         }
 
         // POST: Resources/WorkMaterials
@@ -37,7 +44,13 @@ namespace DTDOrganizer.Controllers
         [HttpPost]
         public ActionResult WorkMaterials()
         {
-            return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.WorkMaterials));
+            return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.WorkMaterials).Select(o => new ResourcesAdminPartialModel()
+            {
+                Resource = o,
+                Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name)).Count()
+
+            }
+            ).ToList());
         }
 
         // POST: Resources/Utilities
@@ -46,7 +59,13 @@ namespace DTDOrganizer.Controllers
         [HttpPost]
         public ActionResult Utilities()
         {
-            return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.Utilities));
+            return PartialView("~/Views/Resources/_ResourcePartial.cshtml", db.AdminResources.Where(i => i.Type == ResourceType.Utilities).Select(o => new ResourcesAdminPartialModel()
+            {
+                Resource = o,
+                Orders = db.RequestResources.Where(i => i.ResourceName.Equals(o.Name)).Count()
+
+            }
+            ).ToList());
         }
 
         // POST: Resources/Requests
@@ -84,7 +103,7 @@ namespace DTDOrganizer.Controllers
         //Finally it redirects to the Index action and subsequently returns the main Resources View if the database update is successful
         [HttpPost]
         public ActionResult RequestAnItem(ResourcesRequestViewModel model)
-        {  
+        {
             try
             {
                 db.RequestResources.Add(new ResourcesRequestModel(model));
@@ -95,7 +114,23 @@ namespace DTDOrganizer.Controllers
             catch {
                 ViewBag.ResourceDbWriteFail = "Resource couldn't be added to the database, try again.";
                 return View(model);
-            } 
+            }
+        }
+
+        // GET: Resources/ResourceOrdered
+        //Changes the status of the Request to whether it's ordered or not
+        public ActionResult ResourceOrdered(string id) {
+            var resourceId = int.Parse(id);
+            try
+            {
+                var resource = db.RequestResources.Where(r => r.Id == resourceId).FirstOrDefault();
+                resource.done = !resource.done;
+                db.SaveChanges();
+            }
+            catch (Exception e) {
+                Console.WriteLine(e.Message);
+            }
+            return Json("success");
         }
 
         // GET: Resources/Create
@@ -128,7 +163,7 @@ namespace DTDOrganizer.Controllers
                     string _FileName = Path.GetFileName(model.image.FileName);
                     string _path = Path.Combine(Server.MapPath("~/Content/Images/Resources"), _FileName);
                     model.image.SaveAs(_path);
-                    addResource.Image = _path;
+                    addResource.Image = "~/Content/Images/Resources/" + _FileName;
                 }
 
                 db.AdminResources.Add(addResource);
@@ -150,7 +185,11 @@ namespace DTDOrganizer.Controllers
             try
             {
                 var resource = db.AdminResources.ToList().Find(r => r.Id == id);
-                if(resource != null) db.AdminResources.Remove(resource);
+                if (resource != null)
+                {
+                    db.AdminResources.Remove(resource);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch

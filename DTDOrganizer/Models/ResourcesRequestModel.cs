@@ -29,6 +29,7 @@ namespace DTDOrganizer.Models
         //Whether the delivery of requested item is urgent for effiecient workflow
         public bool Urgent { get; set; }
         //Has the item been delivered to the requestee
+        [DisplayName("Ordered")]
         public bool done { get; set; }
         //The date that the item has been ordered on in the format [year]-[month]-[day]
         public string orderDate { get; set; }
